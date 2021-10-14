@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    def remoteDependencies = rootProject.ext.remoteDependencies
+
+    implementation project(":data")
+
+    implementation remoteDependencies.kotlin
+    api remoteDependencies.retrofit
+    api remoteDependencies.retrofitConverter
+    api remoteDependencies.retrofitAdapter
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+
+    defaultConfig {
+        applicationId "com.naveentp.newsapp"
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NEWS_API_KEY", '"0073209189624a358a92633681f8e12d"'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    def appDependencies = rootProject.ext.appDependencies
+
+    implementation project(":domain")
+    implementation project(":data")
+    api project(":remote")
+    implementation project(":cache")
+    implementation project(":presentation")
+
+    implementation appDependencies.kotlin
+    implementation appDependencies.appCompat
+    implementation appDependencies.ktx
+    implementation appDependencies.constraintLayout
+    implementation appDependencies.rxKotlin
+    implementation appDependencies.rxAndroid
+    implementation appDependencies.koinAndroid
+    implementation appDependencies.koinAndroidScope
+    implementation appDependencies.koinAndroidViewModel
+    implementation appDependencies.cardView
+    implementation appDependencies.recyclerView
+    implementation appDependencies.picasso
+    debugImplementation appDependencies.debugDb
+
+    testImplementation appDependencies.junit
+    androidTestImplementation appDependencies.testRunner
+    androidTestImplementation appDependencies.espresso
+}
